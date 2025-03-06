@@ -1,0 +1,22 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+bool can(vector<int>& d1, vector<int>& d2, vector<int>& d3, vector<int>& d4)
+{
+     return (d1[0] - d2[0]) * (d3[1] - d4[1]) == (d1[1] - d2[1]) * (d3[0] - d4[0]);
+}
+
+int solution(vector<vector<int>> dots) {
+
+     if (can(dots[0], dots[1], dots[2], dots[3]) || 
+         can(dots[0], dots[2], dots[1], dots[3]) || 
+         can(dots[0], dots[3], dots[1], dots[2])) 
+     {
+        return 1;
+     }
+    
+    return 0;
+    
+}

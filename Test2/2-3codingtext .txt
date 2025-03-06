@@ -1,0 +1,75 @@
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+int solution(int a, int b, int c, int d) {
+    int answer = 0;
+    vector<int> v = {a,b,c,d};
+    sort(v.begin(),v.end());
+    unordered_map<int,int> um;
+    
+    for(auto k : v)
+    {
+        um[k]++;
+    }
+    
+    int p,q;
+    int r = -1;
+    
+    if(um.size() == 1)
+    {
+        answer = 1111 * v[0]; 
+    }
+    else if(um.size() == 2)
+    {
+        if(um.begin()->second == 3 || next(um.begin())->second == 3)
+        {
+            if(um.begin()->second == 3)
+            {
+                p = um.begin()->first;
+                q = next(um.begin())->first;
+            }
+            else
+            {
+                p = next(um.begin())->first;
+                q = um.begin()->first;
+            }
+            answer = (10*p+q);
+            answer *= answer;
+        }
+        else
+        {
+            p = um.begin()->first + next(um.begin())->first;
+            q = um.begin()->first - next(um.begin())->first;
+            if(q < 0)
+                q *= -1;
+            answer = p * q;
+        }
+    }
+    else if(um.size() == 3)
+    {
+        for(auto k : um)
+        {
+            if(k.second == 1 && r== -1)
+            {
+                r = k.first;
+            }
+            else if(k.second == 1 && r!= -1)
+            {
+                q=k.first;
+            }
+            answer = r*q;
+        }
+    }
+    else
+    {
+        answer = v[0];
+    }
+    
+    
+    
+    return answer;
+}
